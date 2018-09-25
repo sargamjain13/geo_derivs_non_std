@@ -1,0 +1,89 @@
+Objective:
+
+	To evaluate the impact of commodity futures in terms of:
+	1. price transmission across mandis
+	2. smoothening of mandi arrivals around the year
+	3. volatility in prices in mandis before and after
+	introduction of futures contracts
+
+	Evaluate the performance of:
+	a) big vs small mandis on basis of above three parameters.
+	b) produce vs consumer centric mandis on basis of above two
+	parameters.
+	Using a set of 6 commodities: mustard, soybean, turmeric,
+	maize, coriander, cummin for the period 2003-2016.
+				   
+Contents:
+
+	FINAL-CUT ANALYSIS
+	1. compile_database.R: This file extracts raw data from three
+	different sources:
+	   a) Price data for near-month futures contracts (file
+	      sourced: validations.R, extractData.R, and
+	      extractContract.R from the repository TECHNICAL_PAPER/).  
+	   b) Price and arrivals data for mandis (file sourced:
+	      extract_mandi_prices.R)
+	   c) Data for distances of mandis from polling and basis
+	      centers  (file sourced: compute_distance.R)
+	2. compute_distance.R: Rscript to compute distances between
+	    mandis. Consists of five functions:
+	    a) pick_polling_center_state(): Finds all polling centers and
+	    concerned state for each commodity
+	    b) pick_delivery_center_state(): Finds all delivery centers and
+	    concerned state for each commodity
+	    c) clean_names(): Cleans names of places before these
+	    are sent into distance calculator
+	    d) distance_calculator(): Computes distance between mandis
+	    (limits queries per day to 2500)
+	    e) cleanMandiNames(): Clarifies state names for specific
+	    mandis that include Telangana, Sri Ganganagar, Ramaganjmandi.
+	    f) cleanCenterNames(): Cleans names of polling and
+	    delivery centers. 
+	3. extract_mandi_prices.R: Rscript to collate mandi prices for
+	   all commodities over the entire period of time:
+	   a) Reads data for October, 2003 to March, 2016 (.dta files)
+	   b) Reads data for April, 2016 to October, 2016 (.csv files)
+	   c) Merged the data for compiled for two periods in a and b.
+      	4. plot_graphs.R: Consist of functions to plot the following:
+	   a) plot_prices(): Plots prices (mandis and futures)
+	   b) plot_price_diff(): Plot price difference w.r.t reference center
+	   c) plot_arrivals(): Plot monthly arrivals in mandis
+	   d) plot_pvol(): Plot volatility in mandi prices
+	   e) plot_ncdex_vol(): Plot traded volumes (in qty) at NCDEX
+	5. prepData.R: Consists of function to prepare
+	data for regression. It consists of two functions:
+	   a) prepData(): Following are the steps executed:
+	      i) Limited the analysis till Dec, 2015
+	      ii) Removed junk observations in prices and arrivals
+	      iii) Truncated outlier values in prices
+	      iv) Winsorised outlier values in arrivals
+	      v) Cleaned mandi and center names
+	      vi) Created dummy variable for futures prices
+	      vii) Picked minimum distance center (it's prices and arrivals)
+	      Has functions from the old: 
+	     	      	read_supplementary_data.R: Consists of following
+	    functions:
+	    a) Function to define center dummies
+	    b) Function to compute mandi and center market share
+	    c) Function to assign district codes
+	    d) Function to add rainfall data
+	    e) Function to add million-plus cities data base
+	    f) Function to add NCDEX traded volumes
+	    g) Functioj to assign contract dummies
+	 6. ncdex_marketShare.R: Using bhavcopy data for a November
+	 2015 date, find out the market share of each commodity.
+
+	 7. checkData.R: Code to find possible bugs from the output
+	     of compile_database.R.
+
+	 8. regression.R Regression models used in the analysis
+	 9. analysis.R Final analysis.
+	 
+	 FIRST-CUT ANALYSIS   
+	 1. extractData.R: Rscript for futures data extraction (used in first-cut analysis).
+	 2. compile_analysis.R: Rscript for complete analysis for each commodity.
+	 3. analysis_soymaize.R: Rscript for first-cut analysis using a set of
+	    two commodities -- maize and soybean.
+	 4. complete_analysis.R:
+	 	 
+	 
